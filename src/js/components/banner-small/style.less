@@ -1,0 +1,19 @@
+.component-banner-small {
+  max-width: @portal-max-width;
+  height: 2rem;
+  margin: 0 auto;
+  position: relative;
+
+  .block {
+    border-bottom: .04rem solid @purple;
+    img{
+      margin-left: -@portal-max-width / 2;
+      position: absolute;
+      left: 50%;
+    }
+
+    .el-carousel__indicators{
+      display: none;
+    }
+  }
+}

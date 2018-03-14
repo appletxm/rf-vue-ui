@@ -1,0 +1,6 @@
+<ul class="component-step-flow">
+  <li v-for="(item, index) in stepsData" :key="item.code" v-bind:class="[item.code <= activeIndex ? 'actived' : '']" v-bind:style="{width: (index < stepsData.length - 1 ? 1/(stepsData.length - 1)*100 : 0) + '%'}">
+    <span>{{ item.label}}</span>
+    <b></b>
+  </li>
+</ul>

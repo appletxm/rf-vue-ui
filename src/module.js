@@ -1,5 +1,5 @@
 export default {
-  add(){
+  add() {
     console.info('-------')
   }
 }
