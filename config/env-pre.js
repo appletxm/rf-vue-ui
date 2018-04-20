@@ -1,6 +1,4 @@
 module.exports = {
-  api: 'http://express.pre.rfgmc.com', // '../../'
-  apiPrefix: '/smartsample-designer',
   publicPath: '',
   distPath: '../dist/',
   sourcePath: '../src/',
@@ -16,6 +14,5 @@ module.exports = {
     'assets/js-libs/moment.min.js',
     'assets/js-libs/lodash.min.js',
     'assets/js-libs/element-ui-2.0.8.min.js'
-  ],
-  supplierAdminUrl: ''
+  ]
 }

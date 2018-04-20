@@ -1,13 +1,11 @@
 module.exports = {
   host: '127.0.0.1',
-  port: 8069,
+  port: 9000,
   get publicPath() {
     return 'http://' + this.host + ':' + this.port + '/dist/'
   },
   distPath: '../dist/',
   sourcePath: '../src/',
-  api: '',
-  apiPrefix: '/smartsample-designer',
   css: [
     'assets/style/element-ui/index.css'
   ],
@@ -22,5 +20,5 @@ module.exports = {
     'assets/js-libs/lodash.min.js',
     'assets/js-libs/element-ui-2.0.8.min.js'
   ],
-  supplierAdminUrl: ''
+  smaplePath: './example'
 }

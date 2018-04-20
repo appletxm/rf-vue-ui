@@ -4,11 +4,7 @@ var autoprefixer = require('autoprefixer')
 module.exports = function (envKeyWord, publicPath) {
   return {
     entry: {
-      app: [],
-      login: [],
-      register: [],
-      resetPss: [],
-      portalHome: [],
+      main: [],
       vendor: ['axios', path.join(__dirname, '../src/js/utils/compatiable-ie-console.js')]
     },
     output: {
@@ -75,12 +71,10 @@ module.exports = function (envKeyWord, publicPath) {
         'vue': 'vue/dist/vue.min.js',
         '@': path.join(__dirname, '../src/'),
         'env.cfg': '',
-        'pages': path.join(__dirname, '../src/js/pages/'),
         'components': path.join(__dirname, '../src/js/components/'),
         'assets': path.join(__dirname, '../src/assets/'),
         'common': path.join(__dirname, '../src/js/common/'),
-        'utils': path.join(__dirname, '../src/js/utils/'),
-        'store': path.join(__dirname, '../src/js/store')
+        'utils': path.join(__dirname, '../src/js/utils/')
       }
     },
     plugins: []

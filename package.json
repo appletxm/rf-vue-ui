@@ -7,8 +7,17 @@
     "example": "examples"
   },
   "scripts": {
+    "clean": "rimraf dist/*",
+    "uglify": "uglifyjs src/assets/js-libs/city-data.js -m -o src/assets/js-libs/city-data.min.js",
+    "eslint": "eslint --config .eslintrc.js src/js/**/*.js",
+    "mock": "npm run clean && node scripts/dev-server.js mock",
     "start": "npm run clean && node scripts/dev-server.js development",
-    "dev": "npm run clean && node scripts/dev-server.js development"
+    "dev": "npm run clean && node scripts/dev-server.js development",
+    "build" : "npm run clean && npm run uglify && node scripts/build.js production current-branch",
+    "buildForProd": "npm run clean && npm run uglify && node scripts/build.js production",
+    "buildForTest": "npm run clean && npm run uglify && node scripts/build.js production test",
+    "buildForPre": "npm run clean && npm run uglify && node scripts/build.js production pre",
+    "release": "node scripts/release.js production"
   },
   "repository": {
     "type": "git",

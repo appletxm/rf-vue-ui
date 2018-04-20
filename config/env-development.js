@@ -1,12 +1,10 @@
 module.exports = {
   host: '127.0.0.1',
-  port: 8069,
-  api: '', // http://10.60.64.132:8089/
-  apiPrefix: '/smartsample-designer',
+  port: 9000,
   get publicPath() {
     return 'http://' + this.host + ':' + this.port + '/dist/'
   },
-   proxy: {
+  proxy: {
     host: '10.60.64.132',
     port: '9121'
   },
@@ -26,5 +24,5 @@ module.exports = {
     'assets/js-libs/lodash.min.js',
     'assets/js-libs/element-ui-2.0.8.min.js'
   ],
-  supplierAdminUrl: '/portal-create-simple-order.html'
+  smaplePath: './example'
 }

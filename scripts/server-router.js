@@ -154,6 +154,7 @@ function routerRootPath (req, res, compiler) {
   // TODO compiler.outputPath is equal to the webpack publickPath
   var filename = path.join(compiler.outputPath, 'index.html')
   // console.info('####', compiler.outputPath, path.join(compiler.outputPath, 'index.html'))
+  console.info('=============', filename)
   getHtmlFile(compiler, filename, res)
 }
 
@@ -179,7 +180,10 @@ function routerImgPath (req, res, compiler) {
 }
 
 function routerHtmlPath (req, res, compiler) {
-  var filename = path.join(compiler.outputPath, req.baseUrl.replace('/', ''))
+  console.info('=================', env[process.env.NODE_ENV]['smaplePath'], compiler.outputPath)
+  // var filename = path.join(compiler.outputPath, req.baseUrl.replace('/', ''))
+  // getHtmlFile(compiler, filename, res)
+  var filename = path.join(env[process.env.NODE_ENV]['smaplePath'], req.baseUrl.replace('/', ''))
   getHtmlFile(compiler, filename, res)
 }
 

@@ -61,4 +61,5 @@ app.use('/', function (req, res) {
 // sometimes the npm start cli will get the "event: 160 erro" in windows you need to run the cli in the ternimal "rm -rf node_modules && npm cache clean --force && npm install" or the port still works need to end them
 app.listen(port, host, function (arg) {
   var url = 'http://' + host + ':' + port
+  console.info('dev server started at: ', url)
 })

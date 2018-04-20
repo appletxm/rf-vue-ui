@@ -30,43 +30,13 @@ module.exports = {
   },
 
   getOutPutConfig: function (envKeyWord, webpack, webpackConfig) {
-    var indexJs = path.resolve('./src/js/index.js')
-    var loginJs = path.resolve('./src/js/pages/login/index.js')
-    var registerJS = path.resolve('./src/js/pages/register/index.js')
-    var resetPassJs = path.resolve('./src/js/pages/reset-password/index.js')
-    var completionUserInfo = path.resolve('./src/js/pages/completion-user-info/index.js')
-    var portalHome = path.resolve('./src/js/pages/portal-home/index.js')
-    var portalSupplierDetail = path.resolve('./src/js/pages/portal-supplier-detail/index.js')
-    var portalCreateOrder = path.resolve('./src/js/pages/portal-create-order/index.js')
-    var portalSupplierList = path.resolve('./src/js/pages/portal-supplier-list/index.js')
-    var portalSampleDetail = path.resolve('./src/js/pages/portal-sample-detail/index.js')
-    var portalCreateSimpleOrder = path.resolve('./src/js/pages/portal-create-simple-order/index.js')
+    var indexJs = path.resolve('./src/index.js')
 
     if (envKeyWord === 'development' || envKeyWord === 'mock') {
-      webpackConfig.entry.app = [hotMiddlewareScript, indexJs]
-      webpackConfig.entry.login = [hotMiddlewareScript, loginJs]
-      webpackConfig.entry.register = [hotMiddlewareScript, registerJS]
-      webpackConfig.entry.resetPss = [hotMiddlewareScript, resetPassJs]
-      webpackConfig.entry.completionUserInfo = [hotMiddlewareScript, completionUserInfo]
-      webpackConfig.entry.portalHome = [hotMiddlewareScript, portalHome]
-      webpackConfig.entry.portalSupplierDetail = [hotMiddlewareScript, portalSupplierDetail]
-      webpackConfig.entry.portalCreateOrder = [hotMiddlewareScript, portalCreateOrder]
-      webpackConfig.entry.portalSupplierList = [hotMiddlewareScript, portalSupplierList]
-      webpackConfig.entry.portalSampleDetail = [hotMiddlewareScript, portalSampleDetail]
-      webpackConfig.entry.portalCreateSimpleOrder = [hotMiddlewareScript, portalCreateSimpleOrder]
+      webpackConfig.entry.main = [hotMiddlewareScript, indexJs]
       webpackConfig.devtool = 'source-map'
     } else {
-      webpackConfig.entry.app = [indexJs]
-      webpackConfig.entry.login = [loginJs]
-      webpackConfig.entry.register = [registerJS]
-      webpackConfig.entry.resetPss = [resetPassJs]
-      webpackConfig.entry.completionUserInfo = [completionUserInfo]
-      webpackConfig.entry.portalHome = [portalHome]
-      webpackConfig.entry.portalSupplierDetail = [portalSupplierDetail]
-      webpackConfig.entry.portalCreateOrder = [portalCreateOrder]
-      webpackConfig.entry.portalSupplierList = [portalSupplierList]
-      webpackConfig.entry.portalSampleDetail = [portalSampleDetail]
-      webpackConfig.entry.portalCreateSimpleOrder = [portalCreateSimpleOrder]
+      webpackConfig.entry.main = [indexJs]
       webpackConfig.devtool = 'cheap-source-map'
     }
 

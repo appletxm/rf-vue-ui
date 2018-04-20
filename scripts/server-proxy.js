@@ -5,17 +5,24 @@ var formidable = require('formidable')
 var serverProxy = {
   doProxy: function (opt, request, response, isSingleFile) {
     var isMultipartData = false
+    var isWWWForm = false
     var contentType = request['headers']['content-type']
 
     response.setHeader('content-type','application/json;charset=UTF-8')
+
     isMultipartData = contentType && contentType.indexOf('multipart/form-data') >= 0
+    isWWWForm = contentType && contentType.indexOf('application/x-www-form-urlencoded') >= 0
 
     if (request.method === 'POST') {
       if(isMultipartData === true){
         this.doPostMultipartData(opt, request, response, isSingleFile)
       } else {
         this.doPost(opt, request).then((result) => {
-          this.createRequest(result, response, request)
+          if (isWWWForm) {
+            this.doPostWWWForm(result, response, request)
+          } else {
+            this.createRequest(result, response, request)
+          }
         })
       }
     } else {
@@ -67,6 +74,7 @@ var serverProxy = {
     // var querystring = require('querystring')
     var contentType
     var isApplicationJson
+    var isWWWForm
 
     options = {
       host: opt.host, // 这里是代理服务器       
@@ -78,16 +86,23 @@ var serverProxy = {
 
     contentType = request['headers']['content-type']
     isApplicationJson = contentType && contentType.indexOf('application/json') >= 0
+    isWWWForm = contentType && contentType.indexOf('application/x-www-form-urlencoded') >= 0
 
     promise = new Promise(function (resolve) {
-      if (!contentType || isApplicationJson) {
+      if (!contentType || isApplicationJson || isWWWForm) {
         request.on('data', function (data) {
           postData += data
         })
 
         request.on('end', function () {
           console.info('[POST DATA NORMAL]', postData)
-          options['headers']['Content-Type'] = isApplicationJson ? 'application/json;charset=UTF-8' : 'text/html'
+          if (isApplicationJson) {
+            options['headers']['Content-Type'] = 'application/json;charset=UTF-8'
+          }
+
+          if(isWWWForm){
+            options['headers']['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
+          }
           options['headers']['Content-Length'] = Buffer.byteLength(postData)
           resolve({options, postData})
         })
@@ -161,41 +176,54 @@ var serverProxy = {
     })
   },
 
-  doPostWWWForm: function(content, request, response) {
-    var querystring = require('querystring')
-    var post_data = querystring.stringify({
-      type : "text",
-      content: content
-    });
-    
-    var options = {
-      host: 'api.com',
-      port: 443,
-      path: '/messages?access_token='+accessToken,
+  doPostWWWForm: function(config, response, request) {
+    // var querystring = require('querystring')
+    // var postData = querystring.stringify({
+    //   type : "text",
+    //   content: result.postData
+    // })
+    var req, options, body
+
+    postData = config.postData
+
+    options = {
+      host: config.options.host,
+      port: config.options.port,
       method: 'POST',
+      path: request.originaUrl,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': post_data.length
+        'Content-Length': postData.length
       }
     }
-    
-    var reqHttps = https.request(options, function(res) {
-      console.log("statusCode: ", res.statusCode)
-      console.log("headers: ", res.headers)
-    
-      res.setEncoding('utf8')
 
-      res.on('data', function(body1) {
-        response.send(body1)
-        console.log("body:"+body1);
+    req = http.request(options, function (res) {
+      console.log('[PROXY STATUS]: ' + res.statusCode)
+      console.log('[PROXY HEADERS]: ' + JSON.stringify(res.headers))
+
+      res.setEncoding('utf8')
+      //send data to response method 1
+      res.on('data', function (chunk) {
+        body += chunk
+      })
+
+      //send data to response method 2
+      //res.pipe(response)
+      res.on('end', function () {
+        let decorateBody = body.replace(/undefined/g, '')
+        console.info('[PROXY response complete]', decorateBody)
+        response.headers = res.headers
+        response.send(decorateBody)
+        response.end()
       })
     })
-      
-    reqHttps.write(post_data)
-    reqHttps.end()
-    reqHttps.on('error', function (e) {
-      console.error("error:" + e)
-      return "系统异常：" + e.message
+
+    req.write(postData + '\n')
+    req.on('error', function (e) {
+      console.log('problem with request: ' + e.message)
+    })
+    req.end(function () {
+      console.info('[PROXY Request success]')
     })
   },
 

@@ -12,7 +12,6 @@
 + -- mock           系统mock数据
 + -- example        引用UI的例子         
 + -- test           单元测试
-+ -- lib            输出合并后的结果
 + -- scripts        npm 对应的相关命令
 + -- src            源代码
   + -- assets       资源库
@@ -35,10 +34,10 @@ $ npm install -g cnpm --registry=https://registry.npm.taobao.org
 # install dependencies
 cnpm install
 
-# serve with hot reload at http://localhost:9000
+# serve with hot reload at http://127.0.0.1:9000
 npm run dev 或者 npm start
 
-# serve with hot reload use mock data at http://localhost:9000
+# serve with hot reload use mock data at http://127.0.0.1:9000
 npm run mock
 
 # check the javascript coding unify and illegal
