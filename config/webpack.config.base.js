@@ -1,15 +1,17 @@
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var autoprefixer = require('autoprefixer')
+var envConfig = require('./env')
+
 module.exports = function (envKeyWord, publicPath) {
   return {
     entry: {
-      main: [],
+      example: [],
       vendor: ['axios', path.join(__dirname, '../src/js/utils/compatiable-ie-console.js')]
     },
     output: {
       filename: (envKeyWord === 'development' || envKeyWord === 'mock') ? 'js/[name].js' : 'js/[name].min.[hash:7].js',
-      path: path.resolve('./dist'),
+      path: path.resolve('./' + envConfig[envKeyWord]['distPath']),
       publicPath: publicPath
     },
     module: {
@@ -20,23 +22,23 @@ module.exports = function (envKeyWord, publicPath) {
           include: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'test')]
         },
         {
-          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+          test: /\.(png|jpe?g|gif)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 8192,
             context: 'client',
-            name: (envKeyWord === 'development' || envKeyWord === 'mock') ? '[path][name].[ext]' : 'assets/images/[name].[hash:7].[ext]',
+            name: (envKeyWord === 'development' || envKeyWord === 'mock') ? '[path][name].[ext]' : 'assets/images/[name].[ext]',
             outputPath: (envKeyWord === 'development' || envKeyWord === 'mock') ? '' : 'assets/images/',
             publicPath: (envKeyWord === 'development' || envKeyWord === 'mock') ? '../' : '../'
           }
         },
         {
-          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 8192,
             context: 'client',
-            name: (envKeyWord === 'development' || envKeyWord === 'mock') ? '[path][name].[ext]' : 'assets/fonts/[name].[hash:7].[ext]',
+            name: (envKeyWord === 'development' || envKeyWord === 'mock') ? '[path][name].[ext]' : 'assets/fonts/[name].[ext]',
             outputPath: (envKeyWord === 'development' || envKeyWord === 'mock') ? '' : 'assets/fonts/',
             publicPath: (envKeyWord === 'development' || envKeyWord === 'mock') ? '../' : '../'
           }

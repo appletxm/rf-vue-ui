@@ -13,8 +13,10 @@ var host = envConfig['development']['host']
 var port = envConfig['development']['port']
 var multer = require('multer')
 var upload = multer({ dest: 'uploads/' })
+var apiPrefix
 
 process.env.NODE_ENV = process.argv && process.argv.length >= 2 ? (process.argv)[2] : 'development'
+apiPrefix = envConfig[process.env.NODE_ENV]['apiPrefix']
 
 app.use(webpackDevMiddleware(compiler, {
   // public path should be the same with webpack config
@@ -41,8 +43,8 @@ app.use(['*/oss/uploadFile'], upload.single('file'), function (req, res) {
 //   serverRouter['uploadMultipleFile'](req, res)
 // })
 
-app.use('/smartsample-designer', function (req, res) {
-  serverRouter['/smartsample-designer'](req, res)
+app.use(apiPrefix, function (req, res) {
+  serverRouter[apiPrefix](req, res)
 })
 
 app.use('/*assets/images/*', function (req, res) {

@@ -1,7 +1,7 @@
 module.exports = {
   publicPath: '',
-  distPath: '../dist/',
-  sourcePath: '../src/',
+  distPath: 'examples',
+  sourcePath: 'src',
   css: [
     'assets/style/element-ui/index.css'
   ],

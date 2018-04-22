@@ -115,7 +115,9 @@ function assignRouter (req, res, next) {
 }
 
 function getHtmlFile (compiler, filename, res, next) {
+  //TODO if you want to get the file from webpack can use the compiler.outputFileSystem
   compiler.outputFileSystem.readFile(filename, function (err, result) {
+  // fs.readFile(filename, function (err, result) {
     if (err) {
       res.send(err)
     }else {
@@ -152,9 +154,10 @@ function getImageFile (compiler, filename, res, next) {
 
 function routerRootPath (req, res, compiler) {
   // TODO compiler.outputPath is equal to the webpack publickPath
-  var filename = path.join(compiler.outputPath, 'index.html')
+  // var filename = path.join(compiler.outputPath, 'index.html')
   // console.info('####', compiler.outputPath, path.join(compiler.outputPath, 'index.html'))
-  console.info('=============', filename)
+  var sampleFilePath = '../' + env[process.env.NODE_ENV]['distPath'] + '/index.html'
+  var filename = path.join(__dirname, sampleFilePath)
   getHtmlFile(compiler, filename, res)
 }
 
@@ -180,10 +183,9 @@ function routerImgPath (req, res, compiler) {
 }
 
 function routerHtmlPath (req, res, compiler) {
-  console.info('=================', env[process.env.NODE_ENV]['smaplePath'], compiler.outputPath)
   // var filename = path.join(compiler.outputPath, req.baseUrl.replace('/', ''))
   // getHtmlFile(compiler, filename, res)
-  var filename = path.join(env[process.env.NODE_ENV]['smaplePath'], req.baseUrl.replace('/', ''))
+  var filename = path.join(__dirname, '../', env[process.env.NODE_ENV]['distPath'], req.baseUrl.replace('/', ''))
   getHtmlFile(compiler, filename, res)
 }
 
@@ -193,7 +195,7 @@ serverRouter = {
     next()
   },
 
-  '/smartsample-designer': assignRouter,
+  [env[process.env.NODE_ENV]['apiPrefix']]: assignRouter,
 
   '/': routerRootPath,
 

@@ -1,15 +1,12 @@
 module.exports = {
   host: '127.0.0.1',
   port: 9000,
-  get publicPath() {
-    return 'http://' + this.host + ':' + this.port + '/dist/'
-  },
   proxy: {
     host: '10.60.64.132',
     port: '9121'
   },
-  distPath: '../dist/',
-  sourcePath: '../src/',
+  distPath: 'examples',
+  sourcePath: 'src',
   css: [
     'assets/style/element-ui/index.css'
   ],
@@ -24,5 +21,8 @@ module.exports = {
     'assets/js-libs/lodash.min.js',
     'assets/js-libs/element-ui-2.0.8.min.js'
   ],
-  smaplePath: './example'
+  apiPrefix: 'apiPrefix',
+  get publicPath() {
+    return 'http://' + this.host + ':' + this.port + '/' + this.distPath +'/'
+  }
 }

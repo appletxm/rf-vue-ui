@@ -30,20 +30,22 @@ module.exports = {
   },
 
   getOutPutConfig: function (envKeyWord, webpack, webpackConfig) {
-    var indexJs = path.resolve('./src/index.js')
+    var indexJs
+
+    exampleJs = path.resolve('./src/js/index.js')
 
     if (envKeyWord === 'development' || envKeyWord === 'mock') {
-      webpackConfig.entry.main = [hotMiddlewareScript, indexJs]
+      webpackConfig.entry.example = [hotMiddlewareScript, exampleJs]
       webpackConfig.devtool = 'source-map'
     } else {
-      webpackConfig.entry.main = [indexJs]
+      webpackConfig.entry.example = [exampleJs]
       webpackConfig.devtool = 'cheap-source-map'
     }
 
     return webpackConfig
   },
 
-  getPluginConfig: function (envKeyWord, webpack, webpackConfig) {
+  getPluginConfig: function (envKeyWord, webpack, webpackConfig, env) {
     var vendorPath, cssPath
 
     if (envKeyWord === 'development' || envKeyWord === 'mock') {
@@ -74,7 +76,7 @@ module.exports = {
 
     webpackConfig.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: vendorPath }),
-      new CopyPlugin([{ from: path.join(__dirname, '../src/assets'), to: path.join(__dirname, '../dist/assets') }]),
+      new CopyPlugin([{ from: path.join(__dirname, '../src/assets'), to: path.join(__dirname, '../' + env['distPath'] + '/assets') }]),
       new ExtractTextPlugin(cssPath)
     )
 
@@ -93,82 +95,11 @@ module.exports = {
     }
     webpackConfig.plugins.push(
       new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - admin',
-        filename: path.join(__dirname, '../dist/', 'admin.html'),
+        title: 'RE-VUE-UI - Examples',
+        filename: path.join(__dirname, '../' + env['distPath'] + '/', 'index.html'),
         template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'app']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - login',
-        filename: path.join(__dirname, '../dist/', 'login.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'login']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - register',
-        filename: path.join(__dirname, '../dist/', 'register.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'register']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - reset-password',
-        filename: path.join(__dirname, '../dist/', 'reset-password.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'resetPss']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - completion userinfo',
-        filename: path.join(__dirname, '../dist/', 'completion-user-info.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'completionUserInfo']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'index.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalHome']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'portal-supplier-detail.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalSupplierDetail']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'portal-create-order.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalCreateOrder']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'portal-supplier-list.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalSupplierList']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'portal-sample-detail.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalSampleDetail']
-      })),
-
-      new HtmlWebPlugin(Object.assign(baseConfig, {
-        title: 'Smart Sampling - portal home',
-        filename: path.join(__dirname, '../dist/', 'portal-create-simple-order.html'),
-        template: path.join(__dirname, '../src/', 'index.ejs'),
-        chunks: ['vendor', 'portalCreateSimpleOrder']
+        chunks: ['vendor', 'example']
       }))
-
     )
 
     return webpackConfig

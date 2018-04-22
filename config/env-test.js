@@ -5,8 +5,8 @@ module.exports = {
     return 'http://' + this.host + ':' + this.port + '/dist/'
   },
   publicPath: '',
-  distPath: '../dist/',
-  sourcePath: '../src/',
+  distPath: 'examples',
+  sourcePath: 'src',
   css: [
     'assets/style/element-ui/index.css'
   ],
