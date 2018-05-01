@@ -1,16 +1,11 @@
 /* global Vue */
-import '../css/index.less'
-// import uiAdapt from 'utils/mobileAdapt'
-// import axioDecorate from 'common/axioDecorate'
+import uiAdapt from 'utils/mobileAdapt'
 // import router from './router'
-// import store from './store'
 import App from './app'
 
-// uiAdapt(window, document, 750)
-// axioDecorate.decorate()
+uiAdapt(window, document, 750)
 
 new Vue({
   // router,
-  // store,
   render: (h) => h(App)
 }).$mount('#app')

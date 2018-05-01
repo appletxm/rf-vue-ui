@@ -1,14 +1,6 @@
+import '../../css/index.less'
 import html from './template.html'
-// import navigator from 'components/navigators'
-// import leftMenu from 'components/left-menu'
-// import bread from 'components/bread'
-// import { SET_USER_LOGIN_STATUS, SET_USER_INFO } from 'store/mutation-types'
-// import { storage } from 'common/storage'
-// import auth from 'common/auth'
-// import globals from 'common/globals'
-// import popLogin from 'components/pop-login'
-// import popRegister from 'components/pop-register'
-// import popResetPwd from 'components/pop-reset-password'
+import {Banner} from 'components'
 
 export default {
   template: html,
