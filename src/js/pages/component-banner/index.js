@@ -1,4 +1,5 @@
 import html from './template.html'
+import { Banner } from 'components'
 
 export default {
   template: html,
@@ -8,8 +9,12 @@ export default {
       default: []
     }
   },
+  components: {
+    Banner
+  },
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+  }
 }

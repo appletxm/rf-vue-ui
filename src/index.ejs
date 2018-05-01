@@ -34,17 +34,11 @@
 <body>
 	<div id="app" class="app"></div>
 
-	<!-- <div>element-ui icon</div>
-	<span class="element-icons el-icon-sort-down"></span> -->
-
-	<%= htmlWebpackPlugin.options.publicPath %>
-
 	<% var jsFiles = htmlWebpackPlugin.options.libFiles.js %>
 		<% for (var index in jsFiles) { %>
 		<script type="text/javascript" src="<%= htmlWebpackPlugin.options.publicPath + jsFiles[index] %>" charset="utf-8"></script>
 	<% } %>
-
-	<!-- <a href="https://mchat.udesk.cn/web_client/index.html?customer_euid=7259&customer_name=火山&merchant_euid=mc01&tenant_id=63922389-ae73-4368-a610-8da6b0c7796b&product_title=xxx&product_url=http://xxx.com&product_image=http://xxx.com/xxx.jpg&product_%E4%BB%B7%E6%A0%BC=%EF%BF%A5100&product_%E5%85%B6%E4%BB%96=点图承衣" target="_blank">联系我们</a>  -->
+	
 </body>
 
 </html>

@@ -76,7 +76,8 @@ module.exports = function (envKeyWord, publicPath) {
         'components': path.join(__dirname, '../src/js/components/'),
         'assets': path.join(__dirname, '../src/assets/'),
         'common': path.join(__dirname, '../src/js/common/'),
-        'utils': path.join(__dirname, '../src/js/utils/')
+        'utils': path.join(__dirname, '../src/js/utils/'),
+        'pages': path.join(__dirname, '../src/js/pages/')
       }
     },
     plugins: []
