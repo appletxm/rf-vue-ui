@@ -3,17 +3,20 @@ import { Banner } from 'components'
 
 export default {
   template: html,
-  props: {
-    bannerList: {
-      type: Array,
-      default: []
-    }
-  },
+  props: {},
   components: {
-    Banner
-  },
+  Banner},
   data() {
-    return {}
+    return {
+      bannerList: [
+        {
+          img: 'assets/images/banner1.jpg'
+        },
+        {
+          img: 'assets/images/banner2.jpg'
+        }
+      ]
+    }
   },
   methods: {
   }

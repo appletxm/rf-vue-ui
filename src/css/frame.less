@@ -1,18 +1,24 @@
 .my-app{
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-
-	.app-frame{
+	.component-list{
 		position: absolute;
-		top: @nav-height + @bread-height;
-		left: @left-menu-width;
-		right: 0;
-		bottom: 0;
-		overflow: auto;
-		background: @white;
-		padding: @con-gap;
+		top:.2rem;
+		left: .2rem;
+		width: 1.5rem;
+
+		a{
+			display: block;
+			line-height: .36rem;
+
+			&.selected{
+				color: @blue;
+			}
+		}
+	}
+
+	.component-frame{
+		margin: .2rem .2rem 0 2rem;
+		min-height: 3rem;
+		position: relative;
+		overflow: hidden;
 	}
 }
