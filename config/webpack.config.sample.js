@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-var webpackFn = require('./webpack.fn')
+var webpackFn = require('./webpack.config.sample.fn')
 var envConfig = require('./env')
 var envKeyWord = (process.argv)[2]
 var env = envConfig[envKeyWord]
@@ -14,7 +14,7 @@ distPath = path.join(__dirname, env.distPath)
 
 console.info('***current env***', envKeyWord, __dirname)
 
-webpackConfig = require('./webpack.config.base')(envKeyWord, publicPath)
+webpackConfig = require('./webpack.config.sample.base')(envKeyWord, publicPath)
 webpackConfig['resolve']['alias']['env.cfg'] = webpackFn.getEnvCfg(envKeyWord)
 webpackConfig = webpackFn.getOutPutConfig(envKeyWord, webpack, webpackConfig)
 webpackConfig = webpackFn.getPluginConfig(envKeyWord, webpack, webpackConfig, env)

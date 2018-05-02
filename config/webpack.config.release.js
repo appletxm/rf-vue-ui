@@ -3,6 +3,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var autoprefixer = require('autoprefixer')
 var envConfig = require('./env')
 var packageJoson = require('../package.json')
+var CopyPlugin = require('copy-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -79,5 +81,24 @@ module.exports = {
       'pages': path.join(__dirname, '../src/js/pages/')
     }
   },
-  plugins: []
+  plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
+      }),
+
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      }),
+
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: vendorPath }),
+    new CopyPlugin([{ from: path.join(__dirname, '../src/assets'), to: path.join(__dirname, '../' + env['distPath'] + '/assets') }]),
+    new ExtractTextPlugin('css/app.min.[hash:7].css')
+  ]
 }
