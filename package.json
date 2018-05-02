@@ -8,7 +8,6 @@
   },
   "scripts": {
     "clean": "rimraf dist/*",
-    "uglify": "uglifyjs src/assets/js-libs/city-data.js -m -o src/assets/js-libs/city-data.min.js",
     "eslint": "eslint --config .eslintrc.js src/js/**/*.js",
     "mock": "npm run clean && node scripts/dev-server.js mock",
     "start": "npm run clean && node scripts/dev-server.js development",
