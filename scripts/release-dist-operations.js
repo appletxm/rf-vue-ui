@@ -43,9 +43,9 @@ module.exports = {
           throw new Error('npm run build failed, ' + error)
           process.exit(1)
         } else {
-          const reg = /\$tarName\(([^()]+)\)/g
-          const tarName = reg.exec(stdout)[1] + '.tar'
-          console.log(chalk.cyan(`\n Release success create tar name: \n ${tarName}`))
+          // const reg = /\$tarName\(([^()]+)\)/g
+          // const tarName = reg.exec(stdout)[1] + '.tar'
+          // console.log(chalk.cyan(`\n Release success create tar name: \n ${tarName}`))
           resolve(true)
         }
       })
