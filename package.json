@@ -1,6 +1,6 @@
 {
   "name": "rf-vue-ui",
-  "version": "v0.2.3",
+  "version": "v0.2.4",
   "description": "A common ui module for rf vue ui.",
   "main": "dist/js/rf-vue-ui.min.js",
   "module": "dist/js/rf-vue-ui.min.js",
