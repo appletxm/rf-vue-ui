@@ -77,7 +77,8 @@ module.exports = function (envKeyWord, publicPath) {
         'assets': path.join(__dirname, '../src/assets/'),
         'common': path.join(__dirname, '../src/js/common/'),
         'utils': path.join(__dirname, '../src/js/utils/'),
-        'pages': path.join(__dirname, '../src/js/pages/')
+        'pages': path.join(__dirname, '../src/js/pages/'),
+        'rf-vue-ui': path.join(__dirname, '../dist/js/rf-vue-ui.js')
       }
     },
     plugins: []

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 100px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>css3 calc</title>
+    <link href="../dist/css/rf-vue-ui.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="../dist/assets/js-libs/vue.min.js"></script>
+  <script src="../dist/js/rf-vue-ui.js"></script>
+  <script>
+      var page = {
+        template: '<tab :tab-data="tabData"></tab>',
+        data: function(){
+            return {
+                tabData: [{
+                    id: '001',
+                    name: 'tab1'
+                },
+                {
+                    id: '002',
+                    name: 'tab2'
+                },
+                {
+                    id: '003',
+                    name: 'tab3'
+                }]
+            }
+        },
+        components: {
+            'tab': Tab
+        },
+        created: function(){
+            console.info('created.......')
+        },
+        mounted: function(){
+            console.info('mounted.......')
+        }
+    }
+
+    new Vue(page).$mount('#app')
+  </script>
+</body>
+
+</html>

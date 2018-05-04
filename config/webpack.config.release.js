@@ -1,19 +1,22 @@
 var path = require('path')
+var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var autoprefixer = require('autoprefixer')
-var envConfig = require('./env')
 var packageJoson = require('../package.json')
 var CopyPlugin = require('copy-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
+const keyWord = process.argv[2]
+const moduleName = packageJoson.name
+
+let baseConfig = {
   entry: {
-    [packageJoson.name]: path.resolve('./src/js/components/index.js')
+    [moduleName]: path.resolve('./src/js/components/index.js')
   },
   output: {
-    filename: 'js/[name].min.[hash:7].js',
+    filename: 'js/[name]' + (keyWord === 'production' ? '.min' : '') + '.js',
     path: path.resolve('./dist'),
-    publicPath: publicPath
+    publicPath: ''
   },
   module: {
     rules: [
@@ -28,7 +31,7 @@ module.exports = {
         options: {
           limit: 8192,
           context: 'client',
-          name: 'assets/images/[name].[ext]',
+          name: '[name].[ext]',
           outputPath: 'assets/images/',
           publicPath: '../'
         }
@@ -39,7 +42,7 @@ module.exports = {
         options: {
           limit: 8192,
           context: 'client',
-          name: 'assets/fonts/[name].[ext]',
+          name: '[name].[ext]',
           outputPath: 'assets/fonts/',
           publicPath: '../'
         }
@@ -73,32 +76,52 @@ module.exports = {
       // 'vue$': 'vue/dist/vue.esm.js',
       'vue': 'vue/dist/vue.min.js',
       '@': path.join(__dirname, '../src/'),
-      'env.cfg': '',
       'components': path.join(__dirname, '../src/js/components/'),
       'assets': path.join(__dirname, '../src/assets/'),
       'common': path.join(__dirname, '../src/js/common/'),
       'utils': path.join(__dirname, '../src/js/utils/'),
       'pages': path.join(__dirname, '../src/js/pages/')
     }
-  },
-  plugins: [
+  }
+}
+
+function getPlugins(){
+  let plugins = []
+
+  if (keyWord === 'production') {
+    plugins.push(
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production')
         }
       }),
-
+      
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
-        }
+        },
+        sourceMap: true
       }),
 
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: vendorPath }),
-    new CopyPlugin([{ from: path.join(__dirname, '../src/assets'), to: path.join(__dirname, '../' + env['distPath'] + '/assets') }]),
-    new ExtractTextPlugin('css/app.min.[hash:7].css')
-  ]
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      // // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: vendorPath }),
+      new ExtractTextPlugin('css/' + moduleName + '.min.css')
+    )
+  } else {
+    plugins.push(
+      new ExtractTextPlugin('css/' + moduleName + '.css')
+    )
+  }
+
+  plugins.push(new CopyPlugin([{ from: path.join(__dirname, '../src/assets'), to: path.join(__dirname, '../dist/assets') }]))
+
+  baseConfig.plugins = plugins
+
+  return baseConfig
 }
+
+baseConfig = getPlugins()
+
+module.exports = baseConfig

@@ -1,40 +1,37 @@
 const rm = require('rimraf')
-const webpackConfig = require('../config/webpack.config')
+const webpackConfigCore = require('../config/webpack.config.release')
 const ora = require('ora')
 const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const distOperations = require('./release-dist-operations')
+const keyWord = process.argv[2]
 
 function build () {
-  var spinner = ora('building for production...')
+  var spinner
+  if(keyWord === 'production') {
+    spinner = ora('building components...')
+  } else {
+    spinner = ora('packaging components...')
+  }
 
   spinner.start()
 
-  rm(path.resolve('./dist/'), function (err) {
-    if (err) {
-      spinner.stop()
-      throw err
-    }
+  // rm(path.resolve('./dist/'), function (err) {
+  //   if (err) {
+  //     spinner.stop()
+  //     throw err
+  //   }
 
-    webpack(webpackConfig, function (err, stats) {
-      if (err) {
-        spinner.stop()
-        throw err
-      }
-      distOperations.createTarFile(process.argv[3] || 'production').then((_) => {
-        spinner.stop()
-        process.stdout.write(stats.toString({
-            colors: true,
-            modules: false,
-            children: false,
-            chunks: false,
-            chunkModules: false
-          }) + '\n\n')
-        console.log(chalk.magenta('*****************build success****************'))
-        console.log(chalk.cyan(`build success : $tarName(${_.versionId})`))
-      })
-    })
+  //   webpack(webpackConfigCore, function (err, stats) {
+  //     spinner.stop()
+  //     console.log(chalk.magenta('*****************' + (keyWord === 'production' ? 'building' : 'packaging') + ' success****************'))
+  //   })
+  // })
+
+  webpack(webpackConfigCore, function (err, stats) {
+    spinner.stop()
+    console.log(chalk.magenta('*****************' + (keyWord === 'production' ? 'building' : 'packaging') + ' success****************'))
   })
 }
 

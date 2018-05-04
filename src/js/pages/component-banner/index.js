@@ -4,8 +4,7 @@ import { Banner } from 'components'
 export default {
   template: html,
   props: {},
-  components: {
-  Banner},
+  components: {Banner},
   data() {
     return {
       bannerList: [

@@ -1,3 +1,4 @@
+/* global define */
 import '../../css/components.less'
 import Banner from './banner'
 import BannerSmall from './banner-small'
@@ -7,20 +8,22 @@ import StepFlow from './step-flow'
 import Tab from './tab'
 import TipsMenu from './tips-menu'
 
-const isCmdEnv = module
-const isAmdEnv = define
+// const isCmdEnv = module
+// const isAmdEnv = define
 const moduleName = 'rf-vue-ui'
 
 let components = {Banner, BannerSmall, Bread, Dialog, StepFlow, Tab, TipsMenu}
 
-try{
-  if(define) {
-    define(moduleName, [], () =>{
-        return components
+try {
+  if (define) {
+    define(moduleName, [], () => {
+      return components
     })
   }
-} catch (error){
-  if(!module){
+} catch (error) {
+  try {
+    module.exports = { Banner, BannerSmall, Bread, Dialog, StepFlow, Tab, TipsMenu }
+  } catch (err) {
     window.Banner = Banner
     window.BannerSmall = BannerSmall
     window.Bread = Bread

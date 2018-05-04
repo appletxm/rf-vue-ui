@@ -2,7 +2,6 @@
 import Banner from 'pages/component-banner'
 import Tab from 'pages/component-tab'
 import StepFlow from 'pages/component-step-flow'
-import { storage } from 'common/storage'
 let routes, router
 
 routes = [
