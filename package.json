@@ -2,7 +2,7 @@
   "name": "rf-vue-ui",
   "version": "v0.2.3",
   "description": "A common ui module for rf vue ui.",
-  "main": "dist/js/rf-vue-ui.mim.js",
+  "main": "dist/js/rf-vue-ui.min.js",
   "module": "dist/js/rf-vue-ui.min.js",
   "unpkg": "dist/js/rf-vue-ui.js",
   "jsdelivr": "dist/js/rf-vue-ui.js",
