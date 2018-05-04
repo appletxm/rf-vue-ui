@@ -1,9 +1,9 @@
 {
   "name": "rf-vue-ui",
-  "version": "v0.2.1",
+  "version": "v0.2.2",
   "description": "A common ui module for rf vue ui.",
   "main": "dist/js/rf-vue-ui.mim.js",
-  "module": "dist/js/rf-vue-ui.mim.js",
+  "module": "dist/js/rf-vue-ui.min.js",
   "unpkg": "dist/js/rf-vue-ui.js",
   "jsdelivr": "dist/js/rf-vue-ui.js",
   "directories": {
@@ -17,7 +17,7 @@
     "build-package": "node scripts/build.js package",
     "build-production" : " node scripts/build.js production",
     "build-cdn-version" : "node scripts/build.js production cdn",
-    "build": "npm run build-package && npm run build-production && npm run build-cdn-version",
+    "build": "npm run clean && npm run build-package && npm run build-production && npm run build-cdn-version",
     "release": "node scripts/release.js production"
   },
   "repository": {

@@ -4,12 +4,12 @@ const chalk = require('chalk')
 const filePath = path.join(__dirname, '../package.json')
 
 const tagOperations = {
-  createTag(version) {
+  createTag(version, description) {
     let promise
     let { exec } = require('child_process')
 
     promise = new Promise((resolve) => {
-      let cmd = `git tag -a  ${version}  -m "create tag version ${version}"`
+      let cmd = `git tag -a  ${version}  -m "${description || ('create tag version ' + version)}"`
       console.log('cmd', cmd)
 
       exec(cmd, (error, stdout, stderr) => {

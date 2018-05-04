@@ -3,9 +3,10 @@ const tagOperations = require('./release-tag-operations')
 const distOperations = require('./release-dist-operations')
 const releaseCodeOperations = require('./release-code-operations')
 const version = process.argv ? (process.argv)[3] : ''
+const tagDesc = process.argv ? (process.argv)[4] : ''
 const ora = require('ora')
 const chalk = require('chalk')
-const spinner = ora('Releasing version: ' + version)
+const spinner = ora(chalk.blue('Releasing version: ' + version))
 
 global.branch = 'master'
 
@@ -24,7 +25,7 @@ releaseCodeOperations.switchBranch()
   })
   .then((res) => {
     if (res === true) {
-      return tagOperations.createTag(version)
+      return tagOperations.createTag(version, tagDesc)
     }
   })
   .then((res) => {
