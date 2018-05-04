@@ -8,15 +8,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const keyWord = process.argv[2]
 const moduleName = packageJoson.name
+const isCdn = !!(process.argv[3] && process.argv[3] === 'cdn')
 
 let baseConfig = {
   entry: {
     [moduleName]: path.resolve('./src/js/components/index.js')
-  },
-  output: {
-    filename: 'js/[name]' + (keyWord === 'production' ? '.min' : '') + '.js',
-    path: path.resolve('./dist'),
-    publicPath: ''
   },
   module: {
     rules: [
@@ -76,6 +72,7 @@ let baseConfig = {
       // 'vue$': 'vue/dist/vue.esm.js',
       'vue': 'vue/dist/vue.min.js',
       '@': path.join(__dirname, '../src/'),
+      'output.cfg': '',
       'components': path.join(__dirname, '../src/js/components/'),
       'assets': path.join(__dirname, '../src/assets/'),
       'common': path.join(__dirname, '../src/js/common/'),
@@ -83,6 +80,32 @@ let baseConfig = {
       'pages': path.join(__dirname, '../src/js/pages/')
     }
   }
+}
+
+function getOutPutLibrary(){
+  let outPut = {
+    filename: 'js/[name]' + (isCdn ? '.cdn' : '') + (keyWord === 'production' ? '.min' : '') + '.js',
+    path: path.resolve('./dist'),
+    publicPath: ''
+  }
+
+  if (!isCdn) {
+    outPut.library = {
+      root: moduleName,
+      amd: moduleName,
+      commonjs: moduleName
+    }
+    outPut.libraryTarget = 'umd'
+  }
+
+  baseConfig.output = outPut
+
+  return baseConfig
+}
+
+function getAlias(){
+  baseConfig['resolve']['alias']['output.cfg'] = isCdn ? path.join(__dirname, '../config/core.output.config.cdn.js') : path.join(__dirname, '../config/core.output.config.js')
+  return baseConfig
 }
 
 function getPlugins(){
@@ -122,6 +145,8 @@ function getPlugins(){
   return baseConfig
 }
 
+baseConfig = getOutPutLibrary()
+baseConfig = getAlias()
 baseConfig = getPlugins()
 
 module.exports = baseConfig

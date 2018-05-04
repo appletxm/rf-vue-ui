@@ -1,6 +1,6 @@
 {
   "name": "rf-vue-ui",
-  "version": "v0.2.0",
+  "version": "v0.2.1",
   "description": "A common ui module for rf vue ui.",
   "main": "dist/js/rf-vue-ui.mim.js",
   "module": "dist/js/rf-vue-ui.mim.js",
@@ -14,7 +14,10 @@
     "eslint": "eslint --config .eslintrc.js src/js/**/*.js",
     "start": "node scripts/dev-server.js development",
     "dev": "npm run clean && node scripts/dev-server.js development",
-    "build" : "npm run clean && node scripts/build.js package && node scripts/build.js production",
+    "build-package": "node scripts/build.js package",
+    "build-production" : " node scripts/build.js production",
+    "build-cdn-version" : "node scripts/build.js production cdn",
+    "build": "npm run build-package && npm run build-production && npm run build-cdn-version",
     "release": "node scripts/release.js production"
   },
   "repository": {

@@ -6,15 +6,19 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const distOperations = require('./release-dist-operations')
 const keyWord = process.argv[2]
+const isCdn = !!process.argv[3]
 
 function build () {
-  var spinner
-  if(keyWord === 'production') {
-    spinner = ora('building components...')
-  } else {
-    spinner = ora('packaging components...')
+  var spinner,
+  label = 'production'
+
+  if(isCdn === true){
+    label = 'cdn'
+  } else if(keyWord === 'package'){
+    label = 'package'
   }
 
+  spinner = ora(chalk.blue('*******build ' + label + ' version start*******'))
   spinner.start()
 
   // rm(path.resolve('./dist/'), function (err) {
@@ -31,7 +35,12 @@ function build () {
 
   webpack(webpackConfigCore, function (err, stats) {
     spinner.stop()
-    console.log(chalk.magenta('*****************' + (keyWord === 'production' ? 'building' : 'packaging') + ' success****************'))
+    if (err) {
+      console.log(chalk.red('*******build ' + label + ' version failed*******'))
+      throw err
+    } else {
+      console.log(chalk.green('*******build ' + label + ' version success*******'))
+    }    
   })
 }
 

@@ -1,5 +1,6 @@
 import html from './template.html'
 import { Banner } from 'components'
+// import { Banner } from 'rf-vue-ui'
 
 export default {
   template: html,

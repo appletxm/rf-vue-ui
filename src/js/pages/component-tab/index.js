@@ -1,14 +1,12 @@
 import html from './template.html'
-// import { Tab } from 'components'
-import { Tab } from 'rf-vue-ui'
-
-console.info(Tab)
+import { Tab } from 'components'
+// import { Tab } from 'rf-vue-ui'
 
 export default {
   template: html,
   props: {},
   components: {
-    'tab': window.Tab
+    'tab': Tab
   },
   data() {
     return {

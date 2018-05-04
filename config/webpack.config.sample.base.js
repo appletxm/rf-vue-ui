@@ -73,12 +73,13 @@ module.exports = function (envKeyWord, publicPath) {
         'vue': 'vue/dist/vue.min.js',
         '@': path.join(__dirname, '../src/'),
         'env.cfg': '',
+        'output.cfg':  path.join(__dirname, '../config/core.output.config.js'),
         'components': path.join(__dirname, '../src/js/components/'),
         'assets': path.join(__dirname, '../src/assets/'),
         'common': path.join(__dirname, '../src/js/common/'),
         'utils': path.join(__dirname, '../src/js/utils/'),
-        'pages': path.join(__dirname, '../src/js/pages/'),
-        'rf-vue-ui': path.join(__dirname, '../dist/js/rf-vue-ui.js')
+        'pages': path.join(__dirname, '../src/js/pages/')
+        // 'rf-vue-ui': path.join(__dirname, '../dist/js/rf-vue-ui.min.js')
       }
     },
     plugins: []
