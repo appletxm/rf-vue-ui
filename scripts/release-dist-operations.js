@@ -38,9 +38,9 @@ module.exports = {
     let { exec } = require('child_process')
 
     promise = new Promise((resolve) => {
-      exec('npm run buildForProd', (error, stdout, stderr) => {
+      exec('npm run build', (error, stdout, stderr) => {
         if (error) {
-          throw new Error('npm run buildForProd failed, ' + error)
+          throw new Error('npm run build failed, ' + error)
           process.exit(1)
         } else {
           const reg = /\$tarName\(([^()]+)\)/g
