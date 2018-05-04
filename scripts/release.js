@@ -6,7 +6,7 @@ const version = process.argv ? (process.argv)[3] : ''
 const tagDesc = process.argv ? (process.argv)[4] : ''
 const ora = require('ora')
 const chalk = require('chalk')
-const spinner = ora(chalk.blue('Releasing version: ' + version))
+const spinner = ora(chalk.green('Releasing version: ' + version))
 
 global.branch = 'master'
 
