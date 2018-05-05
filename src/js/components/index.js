@@ -17,3 +17,4 @@ if (outputCfg.isCdn === true) {
 }
 
 export { Banner, BannerSmall, Bread, Dialog, StepFlow, Tab, TipsMenu }
+export default components
