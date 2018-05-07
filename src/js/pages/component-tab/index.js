@@ -1,6 +1,6 @@
 import html from './template.html'
-import { Tab } from 'components'
-// import { Tab } from 'rf-vue-ui'
+// import { Tab } from 'components'
+import { Tab } from 'rf-vue-ui'
 
 export default {
   template: html,

@@ -8,8 +8,6 @@ export default {
     return {}
   },
   components: {},
-  created() {
-  },
-  mounted() {
-  }
+  created() {},
+  mounted() {}
 }
